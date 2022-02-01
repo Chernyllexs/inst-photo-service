@@ -21,7 +21,7 @@ import java.util.Optional;
 public class PhotoPostServiceImpl implements PhotoPostService {
 
     private final int TARGET_SIZE_FOR_POST = 1080;
-    private final String CONTENT_DIR_POST = "post\\";
+    private final String CONTENT_DIR_POST = "/post";
 
     @Autowired
     private imageServiceImpl imageService;

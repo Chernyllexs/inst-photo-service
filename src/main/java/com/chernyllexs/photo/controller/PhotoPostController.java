@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/photo-post")
+@RequestMapping("/photo/post")
 public class PhotoPostController {
 
     @Autowired
