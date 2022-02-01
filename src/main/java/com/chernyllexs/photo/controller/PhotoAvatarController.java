@@ -10,11 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/photo-avatar")
+@RequestMapping("/photo/avatar")
 public class PhotoAvatarController {
 
-    @Autowired
-    private PhotoAvatarServiceImpl photoAvatarService;
+    private final PhotoAvatarServiceImpl photoAvatarService;
+
+    public PhotoAvatarController(PhotoAvatarServiceImpl photoAvatarService) {
+        this.photoAvatarService = photoAvatarService;
+    }
 
     @PostMapping("/upload-img")
     public PhotoAvatarDto uploadImg(@RequestParam MultipartFile file) {

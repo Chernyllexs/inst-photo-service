@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  postgres-photo:
+    container_name: postgres-photo-db
+    image: postgres:13.5
+    environment:
+      POSTGRES_DB: "photo"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "9000:5432"
+    networks:
+      - postgres-photo-network
+    restart: unless-stopped
+  photo-service:
+    build: .
+  #  image: 'inst/photo:latest'
+  #  container_name: photo-service
+    ports:
+      - "9010:9010"
+    networks:
+      - postgres-photo-network
+    volumes:
+    -  photo-storage:/var/lib/
+    depends_on:
+      - postgres-photo
+
+networks:
+  postgres-photo-network:
+    driver: bridge
+
+volumes:
+  photo-storage:

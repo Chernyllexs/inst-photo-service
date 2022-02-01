@@ -20,8 +20,8 @@ import java.util.UUID;
 @Service
 public class imageServiceImpl implements imageService {
 
-    @Value("${file.upload-dir}")
-    private String dir;
+    //@Value("${file.upload-dir}")
+    private String dir = "/photo-storage";
 
 
     @Override
@@ -31,6 +31,12 @@ public class imageServiceImpl implements imageService {
             if (file.isEmpty()) {
                 throw new FileStorageException("Failed to store empty file.");
             }
+
+            File directory = new File(dir + contentDir);
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+
             Path destinationFile = Paths.get(dir + contentDir).resolve(
                     Paths.get(UUID.randomUUID() + "_" + file.getOriginalFilename()))
                     .normalize().toAbsolutePath();
