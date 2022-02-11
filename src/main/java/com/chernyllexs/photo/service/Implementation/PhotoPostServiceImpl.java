@@ -21,7 +21,7 @@ import java.util.Optional;
 public class PhotoPostServiceImpl implements PhotoPostService {
 
     private final int TARGET_SIZE_FOR_POST = 1080;
-    private final String CONTENT_DIR_POST = "/post";
+    private final String CONTENT_DIR_POST = "post/";
 
     @Autowired
     private imageServiceImpl imageService;
@@ -57,7 +57,7 @@ public class PhotoPostServiceImpl implements PhotoPostService {
         byte[] bytes = new byte[0];
 
         PhotoPostEntity photoById = photoPostRepository.findById(id).orElseThrow(() -> new PhotoPostException("Post photo not found: id = " + id));
-        try (InputStream in = new FileInputStream(new File("photo-storage\\" + CONTENT_DIR_POST + photoById.getPhotoName()))){
+        try (InputStream in = new FileInputStream(new File("/photo-storage" + CONTENT_DIR_POST + photoById.getPhotoName()))){
             bytes = IOUtils.toByteArray(in);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -69,6 +69,11 @@ public class PhotoPostServiceImpl implements PhotoPostService {
 
     @Override
     public void deletePhoto(Long id) {
+        PhotoPostEntity photoById = photoPostRepository.findById(id).orElseThrow(() -> new PhotoPostException("Post photo not found: id = " + id));
+        File file = new File(photoById.getPhotoName());
+        if (file.delete()) {
+            System.out.println("/n/n/n/nFile deleted successfully/n/n/n/n");
+        }
         photoPostRepository.deleteById(id);
     }
 }

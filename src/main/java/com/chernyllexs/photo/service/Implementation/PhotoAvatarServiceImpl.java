@@ -19,7 +19,7 @@ import java.util.List;
 public class PhotoAvatarServiceImpl implements PhotoAvatarService {
 
     private final int TARGET_SIZE_FOR_AVATAR = 300;
-    private final String CONTENT_DIR_POST = "avatar\\";
+    private final String CONTENT_DIR_POST = "avatar/";
 
     @Autowired
     private imageServiceImpl imageService;
@@ -55,7 +55,7 @@ public class PhotoAvatarServiceImpl implements PhotoAvatarService {
         byte[] bytes = new byte[0];
 
         PhotoAvatarEntity photoById = photoAvatarRepository.findById(id).orElseThrow(() -> new PhotoAvatarException("Avatar photo not found: id = " + id));
-        try (InputStream in = new FileInputStream(new File("photo-storage\\" + CONTENT_DIR_POST + photoById.getPhotoName()))){
+        try (InputStream in = new FileInputStream(new File("/photo-storage" + CONTENT_DIR_POST + photoById.getPhotoName()))){
             bytes = IOUtils.toByteArray(in);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
