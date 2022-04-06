@@ -15,14 +15,27 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: false
+    #show-sql: true
     hibernate:
       ddl-auto: validate
+      #ddl-auto: create
   servlet:
     multipart:
       enabled: true
       file-size-threshold: 100KB
       max-file-size: 20MB
       max-request-size: 25MB
-file:
-  upload-dir: photo-storage\\
 
+keycloak:
+  auth-server-url: http://auth-service:8080/auth
+  realm: inst-project
+  resource: inst-photo-service
+  ssl-required: external
+  bearer-only: true
+  use-resource-role-mappings: true
+  credentials:
+    secret: 2lZsqgGbLfNf10GOGPp0fcPZtcUlHjx2
+
+file:
+  storage:
+    upload-dir: "./var/lib/data/"
